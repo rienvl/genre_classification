@@ -50,18 +50,33 @@ def go(config: DictConfig):
         )
 
     if "check_data" in steps_to_execute:
+        # purpose: to check if the latest version of input for training is correct
+        # thus uses
+        # 1) a predefined reference dataset that you know is good (defined in config)
+        # 2) the artifact used for training (: which is always preprocessed_data.csv:latest)
         _ = mlflow.run(
             os.path.join(root_path, "check_data"),
             "main",
             parameters={
-                "reference_artifact": "train_split.csv:latest",
-                "sample_artifact": "test_split.csv:latest",
+                "reference_artifact": config["data"]["reference_dataset"],
+                "sample_artifact": "preprocessed_data.csv:latest",
                 "ks_alpha": config["data"]["ks_alpha"]
             }
         )
 
     if "segregate" in steps_to_execute:
-        _ = mlflow.run(os.path.join(root_path, "segregate"))
+        _ = mlflow.run(
+            os.path.join(root_path, "segregate"),
+            "main",
+            parameters={
+                "input_artifact": "preprocessed_data.csv:latest",
+                "artifact_root": "data",  # produced artifacts will be {root}_train.csv and {root}_test.csv
+                "artifact_type": "segregated_data",
+                "test_size": config["data"]["test_size"],
+                "random_state": config["random_forest_pipeline"]["random_forest"]["random_state"],
+                "stratify": config["data"]["stratify"]
+            }
+        )
 
     if "random_forest" in steps_to_execute:
 
