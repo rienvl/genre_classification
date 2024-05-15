@@ -26,10 +26,10 @@ def data(request):
         pytest.fail("--sample_artifact missing on command line")
 
     local_path = run.use_artifact(reference_artifact).file()
-    sample1 = pd.read_csv(local_path)
+    sample1 = pd.read_csv(local_path, low_memory=False)
 
     local_path = run.use_artifact(sample_artifact).file()
-    sample2 = pd.read_csv(local_path)
+    sample2 = pd.read_csv(local_path, low_memory=False)
 
     return sample1, sample2
 
