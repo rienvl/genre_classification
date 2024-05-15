@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/mlruns/.trash" />
+      <excludeFolder url="file://$MODULE_DIR$/mlruns/0/03e11fd2aa4f40b8a691c07386875978/artifacts" />
+      <excludeFolder url="file://$MODULE_DIR$/mlruns/0/03e11fd2aa4f40b8a691c07386875978/metrics" />
+      <excludeFolder url="file://$MODULE_DIR$/mlruns/0/1f00a1f1fa2649a7a1793415b45df6e8/artifacts" />
+      <excludeFolder url="file://$MODULE_DIR$/mlruns/0/1f00a1f1fa2649a7a1793415b45df6e8/metrics" />
+      <excludeFolder url="file://$MODULE_DIR$/mlruns/0/8fb38715347a487fb56a9b88f1f1771b/artifacts" />
+      <excludeFolder url="file://$MODULE_DIR$/mlruns/0/8fb38715347a487fb56a9b88f1f1771b/metrics" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

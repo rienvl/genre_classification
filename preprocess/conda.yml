@@ -7,4 +7,4 @@ dependencies:
   - pip  # =20.3.3
   - pyarrow=2.0
   - pip:
-      - wandb==0.16.0
+      - wandb==0.17.0

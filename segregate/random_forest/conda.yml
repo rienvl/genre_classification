@@ -11,5 +11,5 @@ dependencies:
   - pillow=8.1.2
   - mlflow  # =1.14.1
   - pip:
-      - wandb==0.16.0
+      - wandb==0.17.0
       - omegaconf==2.0.6

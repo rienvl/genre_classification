@@ -3,7 +3,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - requests=2.24.0
+  - requests  # =2.24.0
   - pip
   - pip:
-      - wandb==0.16.0
+      - wandb==0.17.0
