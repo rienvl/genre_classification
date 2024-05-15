@@ -65,6 +65,8 @@ def go(config: DictConfig):
         )
 
     if "segregate" in steps_to_execute:
+        # note: segregate generates 2 artifacts: data_train.csv and data_test.csv
+        # therefore we use artifact_root(_name) to define the final names of the generated artifacts
         _ = mlflow.run(
             os.path.join(root_path, "segregate"),
             "main",
@@ -81,7 +83,7 @@ def go(config: DictConfig):
     if "random_forest" in steps_to_execute:
 
         # Serialize decision tree configuration
-        model_config = os.path.abspath("random_forest_config.yml")
+        model_config = os.path.abspath("random_forest_config.yml")  # take the relevant part from the config file
 
         with open(model_config, "w+") as fp:
             fp.write(OmegaConf.to_yaml(config["random_forest_pipeline"]))
@@ -92,9 +94,9 @@ def go(config: DictConfig):
             parameters={
                 "train_data": "data_train.csv:latest",
                 "model_config": model_config,
-                "export_artifact": "model_export",
+                "export_artifact": config["random_forest_pipeline"]["export_artifact"],
                 "random_seed": config["main"]["random_seed"],
-                "val_size": config["data"]["val_size"],
+                "val_size": config["data"]["val_size"],  # confusing test_size/val_size: solution uses test_size ...
                 "stratify": config["data"]["stratify"]
             }
         )
@@ -104,8 +106,8 @@ def go(config: DictConfig):
             os.path.join(root_path, "evaluate"),
             "main",
             parameters={
-                "model_export": "model_export:latest",
-                "test_data": "test_data.csv:latest"
+                "model_export": f"{config["random_forest_pipeline"]["export_artifact"]}:latest",
+                "test_data": "data_test.csv:latest"
             }
         )
 
